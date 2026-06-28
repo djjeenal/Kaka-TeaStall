@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kaka Tea Stall — Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+ margin:0;
+ font-family:'Poppins',sans-serif;
+ background:#fff6ed;
+ color:#222;
+}
+.top-header{
+ background:linear-gradient(135deg,#3e0000,#8b0000,#d97706);
+ color:white;
+ padding:18px;
+ text-align:center;
+ font-size:22px;
+ font-weight:700;
+ box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+.hidden{display:none;}
+.section{padding:20px;}
+.card{
+ background:white;
+ border-radius:18px;
+ padding:20px;
+ margin-bottom:20px;
+ box-shadow:0 6px 15px rgba(0,0,0,0.10);
+}
+h3{margin-top:0;color:#7b0000;}
+.login-card{
+ max-width:360px;
+ margin:auto;
+ text-align:center;
+}
+input{
+ width:100%;
+ padding:10px;
+ margin-top:6px;
+ margin-bottom:12px;
+ border-radius:8px;
+ border:1px solid #ccc;
+ font-family:Poppins;
+}
+button{
+ background:linear-gradient(135deg,#ffd36a,#ffb300);
+ border:none;
+ padding:8px 16px;
+ border-radius:20px;
+ font-weight:700;
+ box-shadow:0 3px 8px rgba(0,0,0,0.25);
+}
+.toggle-row{
+ display:flex;
+ justify-content:space-between;
+ padding:8px 0;
+ font-weight:500;
+}
+.item-row{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:10px 0;
+ border-bottom:1px dashed #ddd;
+ gap:8px;
+}
+.item-row img{
+ width:50px;
+ height:50px;
+ border-radius:8px;
+ object-fit:cover;
+}
+.edit-box{
+ background:#fff3da;
+ padding:10px;
+ border-radius:10px;
+ margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-header">
+☕ Kaka Tea Stall — Admin Panel
+</div>
+
+<!-- LOGIN -->
+<div class="section" id="loginBox">
+ <div class="card login-card">
+   <h3>Admin Login</h3>
+   <input type="password" id="pass" placeholder="Enter Admin Password">
+   <button onclick="login()">Login</button>
+   <p id="loginMsg" style="color:red;"></p>
+ </div>
+</div>
+
+<!-- PANEL -->
+<div class="section hidden" id="panel">
+
+ <!-- PASSWORD CHANGE -->
+ <div class="card">
+   <h3>Change Admin Password</h3>
+   <input type="password" id="newPass" placeholder="New Password">
+   <button onclick="changePass()">Update Password</button>
+ </div>
+
+ <!-- SYSTEM CONTROLS -->
+ <div class="card">
+   <h3>Payment System Controls</h3>
+
+   <div class="toggle-row">
+     <span>QR / UPI Payment System</span>
+     <input type="checkbox" id="upiToggle">
+   </div>
+
+   <div class="toggle-row">
+     <span>WhatsApp Share System</span>
+     <input type="checkbox" id="waToggle">
+   </div>
+
+   <div class="toggle-row">
+     <span>Direct UPI Pay Link</span>
+     <input type="checkbox" id="directUpiToggle">
+   </div>
+
+   <div class="toggle-row">
+     <span>Pay Now Page Link</span>
+     <input type="checkbox" id="payPageToggle">
+   </div>
+
+   <button onclick="saveSystem()">Save Settings</button>
+ </div>
+
+ <!-- ADD ITEM -->
+ <div class="card">
+   <h3>Add New Item</h3>
+   <input id="itemName" placeholder="Item Name">
+   <input id="itemPrice" placeholder="Item Price">
+   <input type="file" id="itemImg">
+   <button onclick="addItem()">Add Item</button>
+ </div>
+
+ <!-- ITEM LIST -->
+ <div class="card">
+   <h3>All Items (Edit / Delete)</h3>
+   <div id="itemListAdmin"></div>
+ </div>
+
+</div>
+
+<script>
+/* ===== PASSWORD ===== */
+let savedPass = localStorage.getItem("adminPass") || "1234";
+
+function login(){
+ let p=document.getElementById("pass").value;
+ if(p===savedPass){
+   loginBox.classList.add("hidden");
+   panel.classList.remove("hidden");
+   loadItems();
+   loadSystem();
+ }else{
+   loginMsg.innerText="Wrong Password!";
+ }
+}
+
+function changePass(){
+ let np=document.getElementById("newPass").value;
+ if(np.length<4){alert("Minimum 4 characters");return;}
+ localStorage.setItem("adminPass",np);
+ alert("Password Updated!");
+}
+
+/* ===== SYSTEM SAVE ===== */
+function saveSystem(){
+ localStorage.setItem("upiSystem", upiToggle.checked);
+ localStorage.setItem("waSystem", waToggle.checked);
+ localStorage.setItem("directUpi", directUpiToggle.checked);
+ localStorage.setItem("payPage", payPageToggle.checked);
+ alert("System Settings Saved!");
+}
+
+function loadSystem(){
+ upiToggle.checked        = localStorage.getItem("upiSystem") !== "false";
+ waToggle.checked         = localStorage.getItem("waSystem") !== "false";
+ directUpiToggle.checked = localStorage.getItem("directUpi") !== "false";
+ payPageToggle.checked   = localStorage.getItem("payPage") !== "false";
+}
+
+/* ===== ITEM DATABASE ===== */
+let items = JSON.parse(localStorage.getItem("itemsDB")) || [];
+
+function loadItems(){
+ let html="";
+ items.forEach((it,i)=>{
+ html+=`
+ <div class="item-row">
+   <img src="${it.img}">
+   <div>
+     <b>${it.name}</b><br>₹${it.price}
+     <div>
+       <button onclick="showEdit(${i})">Edit</button>
+       <button onclick="deleteItem(${i})">Delete</button>
+     </div>
+     <div class="edit-box hidden" id="edit${i}">
+       <input id="editName${i}" value="${it.name}">
+       <input id="editPrice${i}" value="${it.price}">
+       <input type="file" id="editImg${i}">
+       <button onclick="saveEdit(${i})">Save Changes</button>
+     </div>
+   </div>
+ </div>`;
+ });
+ itemListAdmin.innerHTML=html;
+}
+
+/* ===== ADD ITEM ===== */
+function addItem(){
+ let name=document.getElementById("itemName").value;
+ let price=document.getElementById("itemPrice").value;
+ let file=document.getElementById("itemImg").files[0];
+
+ if(!name || !price || !file){ alert("Fill all fields"); return; }
+
+ let reader = new FileReader();
+ reader.onload = function(e){
+   items.push({name:name,price:price,img:e.target.result});
+   localStorage.setItem("itemsDB",JSON.stringify(items));
+   loadItems();
+   alert("Item Added!");
+ };
+ reader.readAsDataURL(file);
+}
+
+/* ===== DELETE ===== */
+function deleteItem(i){
+ items.splice(i,1);
+ localStorage.setItem("itemsDB",JSON.stringify(items));
+ loadItems();
+}
+
+/* ===== EDIT SYSTEM ===== */
+function showEdit(i){
+ document.getElementById("edit"+i).classList.toggle("hidden");
+}
+
+function saveEdit(i){
+ let newName = document.getElementById("editName"+i).value;
+ let newPrice = document.getElementById("editPrice"+i).value;
+ let newFile = document.getElementById("editImg"+i).files[0];
+
+ if(newFile){
+   let reader = new FileReader();
+   reader.onload=function(e){
+     items[i]={name:newName,price:newPrice,img:e.target.result};
+     localStorage.setItem("itemsDB",JSON.stringify(items));
+     loadItems();
+   }
+   reader.readAsDataURL(newFile);
+ }else{
+   items[i].name=newName;
+   items[i].price=newPrice;
+   localStorage.setItem("itemsDB",JSON.stringify(items));
+   loadItems();
+ }
+}
+</script>
+
+</body>
+</html>
