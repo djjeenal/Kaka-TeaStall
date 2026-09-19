@@ -1,380 +1,1037 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Kaka Tea Stall — Premium Chai & Bhojan</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaka Tea Stall | Premium Chai & Bhojan</title>
+  <meta name="description" content="Kaka Tea Stall offers premium chai, fresh bhojan and fast digital ordering in Ahmedabad." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fffaf4;
+      --panel: #ffffff;
+      --panel-soft: #fff3e6;
+      --card: #fffdfb;
+      --text: #1d1a18;
+      --muted: #68615d;
+      --primary: #7a2200;
+      --primary-dark: #4e0d00;
+      --secondary: #e89a3c;
+      --accent: #ffd4a3;
+      --line: rgba(44, 22, 18, 0.1);
+      --shadow: 0 20px 50px rgba(97, 34, 16, 0.12);
+      --radius: 26px;
+      --container: 1180px;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    * { box-sizing: border-box; }
 
-<style>
-body{
- margin:0;
- font-family:'Poppins',sans-serif;
- background:#fff6ed;
- color:#222;
-}
+    html { scroll-behavior: smooth; }
 
-/* ===== TOP HEADER ===== */
-.top-header{
- background:linear-gradient(135deg,#3e0000,#8b0000,#d97706);
- color:white;
- padding:22px;
- text-align:center;
- box-shadow:0 6px 18px rgba(0,0,0,0.35);
-}
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(180deg, #fffaf4 0%, #fff6ef 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-.top-header h1{
- margin:0;
- font-size:30px;
- font-weight:700;
- letter-spacing:1px;
-}
+    img { max-width: 100%; display: block; }
 
-.top-header p{
- margin:4px 0 0;
- font-size:14px;
- opacity:0.9;
-}
+    a { text-decoration: none; color: inherit; }
 
-/* ===== NAVBAR ===== */
-.navbar{
- background:#ffffff;
- display:flex;
- justify-content:space-around;
- padding:14px 0;
- position:sticky;
- top:0;
- z-index:100;
- box-shadow:0 3px 12px rgba(0,0,0,0.12);
-}
+    .container {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+    }
 
-.navbar a{
- color:#7b0000;
- text-decoration:none;
- font-weight:600;
- font-size:15px;
-}
+    .topbar {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), #bb4d00);
+      color: #fff;
+      padding: 14px 0;
+      letter-spacing: 0.04em;
+      font-size: 0.83rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(66, 17, 0, 0.2);
+    }
 
-/* ===== HERO ===== */
-.hero{
- background:linear-gradient(135deg,#ffb74d,#ff7043);
- color:white;
- padding:45px 20px;
- text-align:center;
- border-radius:0 0 30px 30px;
- box-shadow:0 6px 18px rgba(0,0,0,0.25);
-}
+    .topbar span {
+      display: inline-block;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+    }
 
-.hero h2{
- margin:0;
- font-size:28px;
- font-weight:700;
-}
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(99, 28, 11, 0.08);
+    }
 
-.hero p{
- margin-top:8px;
- font-size:15px;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 82px;
+      gap: 24px;
+    }
 
-.hero a{
- display:inline-block;
- margin-top:15px;
- background:#7b0000;
- color:white;
- padding:14px 28px;
- border-radius:30px;
- text-decoration:none;
- font-weight:700;
- box-shadow:0 4px 12px rgba(0,0,0,0.35);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+    }
 
-/* ===== SECTION COMMON ===== */
-.section{
- padding:30px 18px;
- max-width:1100px;
- margin:auto;
-}
+    .brand-mark {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #fff1de, #ffd19f);
+      box-shadow: inset 0 0 0 1px rgba(122,34,0,0.09);
+      font-size: 1.5rem;
+    }
 
-.card{
- background:white;
- border-radius:20px;
- padding:24px;
- margin-bottom:26px;
- box-shadow:0 8px 20px rgba(0,0,0,0.10);
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2vw, 30px);
+      font-size: 0.96rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
 
-/* ===== TITLES ===== */
-h3{
- margin-top:0;
- color:#7b0000;
- font-size:22px;
- font-weight:700;
-}
+    .nav-links a:hover { color: var(--primary); }
 
-/* ===== MENU ===== */
-.menu-line{
- display:flex;
- justify-content:space-between;
- padding:10px 0;
- border-bottom:1px dashed #ddd;
- font-weight:500;
-}
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* ===== GALLERY ===== */
-.gallery-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:16px;
- margin-top:12px;
-}
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: none;
+      border-radius: 999px;
+      padding: 0.92rem 1.5rem;
+      font-weight: 800;
+      font-size: 0.97rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-.gallery-item{
- background:#fff;
- border-radius:16px;
- overflow:hidden;
- box-shadow:0 6px 14px rgba(0,0,0,0.15);
-}
+    .btn:hover { transform: translateY(-2px); }
 
-.gallery-item img{
- width:100%;
- height:160px;
- object-fit:cover;
- display:block;
-}
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #b64504);
+      color: #fff;
+      box-shadow: 0 16px 28px rgba(122,34,0,0.22);
+    }
 
-.gallery-caption{
- padding:8px;
- text-align:center;
- font-size:13px;
- font-weight:600;
- color:#7b0000;
-}
+    .btn-secondary {
+      background: #fff;
+      color: var(--primary-dark);
+      border: 1px solid rgba(122,34,0,0.15);
+    }
 
-/* ===== MAP ===== */
-.map-frame{
- width:100%;
- height:260px;
- border:0;
- border-radius:16px;
- box-shadow:0 6px 14px rgba(0,0,0,0.15);
-}
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at top left, rgba(255, 198, 133, 0.55), transparent 34%),
+                  linear-gradient(135deg, #fff1de 0%, #ffe6c9 16%, #fffaf5 44%, #fff0df 100%);
+      padding: 56px 0 22px;
+    }
 
-/* ===== TIMINGS ===== */
-.time-row{
- display:flex;
- justify-content:space-between;
- padding:8px 0;
- font-weight:500;
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 46px;
+    }
 
-/* ===== REVIEW SYSTEM ===== */
-.review-form input, .review-form textarea, .review-form select{
- width:100%;
- padding:10px;
- margin-top:6px;
- margin-bottom:12px;
- border-radius:8px;
- border:1px solid #ccc;
- font-family:Poppins;
-}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(122,34,0,0.08);
+    }
 
-.review-btn{
- background:#7b0000;
- color:white;
- padding:12px 22px;
- border:none;
- border-radius:30px;
- font-weight:700;
- box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
+    h1 {
+      margin: 18px 0 16px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      color: var(--primary-dark);
+    }
 
-.review-card{
- background:#fffaf4;
- border-radius:14px;
- padding:12px;
- margin-top:10px;
- box-shadow:0 4px 10px rgba(0,0,0,0.08);
-}
+    .hero-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 620px;
+    }
 
-.stars{
- color:#ffb300;
- font-size:14px;
-}
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
 
-/* ===== FOOTER ===== */
-footer{
- background:linear-gradient(135deg,#3e0000,#7b0000,#d97706);
- color:white;
- text-align:center;
- padding:16px;
- font-size:14px;
- margin-top:30px;
- box-shadow:0 -4px 12px rgba(0,0,0,0.25);
-}
-</style>
+    .trust-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 26px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .trust-row .stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(122,34,0,0.06);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .showcase {
+      position: relative;
+      width: min(100%, 500px);
+      padding: 20px;
+      border-radius: 32px;
+      background: rgba(255,255,255,0.52);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(122,34,0,0.08);
+    }
+
+    .card-hero {
+      background: linear-gradient(180deg, #fffdfb 0%, #fff2e5 100%);
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(122,34,0,0.04);
+    }
+
+    .hero-image {
+      position: relative;
+      min-height: 420px;
+      background:
+        linear-gradient(180deg, rgba(47,16,9,0.18), rgba(47,16,9,0.08)),
+        url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+    }
+
+    .floating-tag {
+      position: absolute;
+      background: rgba(255,255,255,0.92);
+      color: var(--primary-dark);
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 18px 36px rgba(86, 34, 10, 0.14);
+      font-weight: 800;
+    }
+
+    .tag-one { top: 26px; right: 16px; }
+    .tag-two { bottom: 22px; left: 16px; }
+
+    .rating-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px 22px;
+      background: rgba(255,255,255,0.7);
+    }
+
+    .rating-panel strong {
+      display: block;
+      font-size: 1.6rem;
+      color: var(--primary-dark);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .rating-panel small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .stars { color: #ffb018; letter-spacing: 0.16em; font-size: 1.1rem; }
+
+    .section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 3rem);
+      color: var(--primary-dark);
+      line-height: 1.1;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 540px;
+      font-size: 1.02rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .feature-card,
+    .menu-card,
+    .review-card,
+    .gallery-item,
+    .info-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(43, 29, 24, 0.06);
+    }
+
+    .feature-card {
+      padding: 24px 20px;
+    }
+
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fff0dc, #ffd7aa);
+      font-size: 1.7rem;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+    }
+
+    .feature-card p,
+    .menu-card p,
+    .review-card p,
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .menu-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .menu-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .menu-body {
+      padding: 20px 18px 22px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(122,34,0,0.15);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item span:last-child {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .story-card {
+      background: linear-gradient(135deg, #fffaf5 0%, #fff2e5 100%);
+      border: 1px solid rgba(122,34,0,0.06);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .story-image {
+      height: 100%;
+      min-height: 430px;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80') center/cover no-repeat;
+    }
+
+    .story-copy {
+      padding: 32px 30px;
+    }
+
+    .story-copy ul {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .story-copy li { position: relative; padding-left: 24px; }
+    .story-copy li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .stats-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    .info-card {
+      padding: 24px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, #fff 0%, #fff8f1 100%);
+    }
+
+    .info-card strong {
+      display: block;
+      font-size: 2.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+    }
+
+    .gallery-item img {
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-item .caption {
+      padding: 14px 12px 16px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      text-align: center;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 22px;
+    }
+
+    .review-card {
+      padding: 22px 18px;
+    }
+
+    .review-card .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .review-card .name {
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .review-card .stars { font-size: 1rem; }
+
+    .location-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .location-box {
+      background: linear-gradient(180deg, #fff 0%, #fffaf3 100%);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .location-box h3 { font-size: 1.7rem; margin-bottom: 16px; }
+
+    .location-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(122,34,0,0.08);
+    }
+
+    .location-row:last-child { border-bottom: none; }
+
+    .loc-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #fff1e0;
+      color: var(--primary);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .map-frame {
+      width: 100%;
+      min-height: 420px;
+      border: 0;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(122,34,0,0.08);
+    }
+
+    .cta-band {
+      padding: 26px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), #b04507);
+      border-radius: 32px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 25px 40px rgba(76, 19, 0, 0.24);
+    }
+
+    .cta-band h3 {
+      color: #fff;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      margin-bottom: 6px;
+      line-height: 1.1;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.05em;
+    }
+
+    .cta-band p {
+      margin: 0;
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+    }
+
+    .footer {
+      padding: 34px 0 28px;
+      background: #201611;
+      color: rgba(255,255,255,0.8);
+      margin-top: 72px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-size: 1.08rem;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.7);
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .story-grid,
+      .location-wrap,
+      .menu-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .section-head {
+        display: block;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .features-grid,
+      .stats-wrap,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-band {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="topbar">
+    <span>Now delivering premium chai & fast bhojan in Ahmedabad</span>
+  </div>
 
-<!-- HEADER -->
-<div class="top-header">
-<h1>☕ Kaka Tea Stall</h1>
-<p>Premium Chai • Simple Bhojan • Digital Self Order</p>
-</div>
+  <header class="header">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-mark">☕</div>
+        <span>Kaka Tea Stall</span>
+      </div>
 
-<!-- NAV -->
-<div class="navbar">
-<a href="#about">About</a>
-<a href="#menu">Menu</a>
-<a href="#gallery">Gallery</a>
-<a href="#location">Location</a>
-<a href="#reviews">Reviews</a>
-</div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#experience">Experience</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#location">Location</a>
+      </nav>
 
-<!-- HERO -->
-<div class="hero">
-<h2>Welcome to Kaka Tea Stall</h2>
-<p>Fast Service • Clean Seating • Digital Payment</p>
-<a href="main.html">🍽️ Order Now</a>
-</div>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="main.html">Order Now</a>
+      </div>
+    </div>
+  </header>
 
-<!-- ABOUT -->
-<div class="section" id="about">
-<div class="card">
-<h3>About Kaka Tea Stall</h3>
-<p>
-Kaka Tea Stall ek trusted chai aur bhojan center hai.  
-Yahan garma-garam premium chai, simple ghar-jaisa bhojan  
-aur clean seating environment milta hai.  
-Subah 4:30 AM se raat 11:00 PM tak seva uplabdh hai.
-</p>
-</div>
-</div>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Premium Chai • Fresh Bhojan</div>
+          <h1>Warm taste. Modern feel.</h1>
+          <p>
+            From steaming masala chai to satisfying home-style meals, Kaka Tea Stall brings together
+            authentic flavours, clean comfort, and a premium café-style experience for everyday cravings.
+          </p>
 
-<!-- MENU -->
-<div class="section" id="menu">
-<div class="card">
-<h3>Menu & Prices</h3>
-<div class="menu-line"><span>☕ Regular Chai</span><span>₹5</span></div>
-<div class="menu-line"><span>☕ Special Chai</span><span>₹15</span></div>
-<div class="menu-line"><span>☕ Masala Chai</span><span>₹25</span></div>
-<div class="menu-line"><span>🍛 Dal Chawal</span><span>₹40</span></div>
-<div class="menu-line"><span>🥘 Sabji Roti</span><span>₹50</span></div>
-<div class="menu-line"><span>🍽️ Full Bhojan Plate</span><span>₹60</span></div>
-</div>
-</div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="main.html">🍽️ Place Your Order</a>
+            <a class="btn btn-secondary" href="#menu">See Menu</a>
+          </div>
 
-<!-- GALLERY -->
-<div class="section" id="gallery">
-<div class="card">
-<h3>Gallery</h3>
-<div class="gallery-grid">
- <div class="gallery-item">
-   <img src="https://i.imgur.com/Fk7V4ks.jpg">
-   <div class="gallery-caption">Premium Fresh Chai</div>
- </div>
- <div class="gallery-item">
-   <img src="https://i.imgur.com/0q9Z1Zm.jpg">
-   <div class="gallery-caption">Simple Bhojan</div>
- </div>
- <div class="gallery-item">
-   <img src="https://i.imgur.com/7yUvePI.jpg">
-   <div class="gallery-caption">Clean Seating</div>
- </div>
- <div class="gallery-item">
-   <img src="https://i.imgur.com/1JQJg9S.jpg">
-   <div class="gallery-caption">Customer Counter</div>
- </div>
-</div>
-</div>
-</div>
+          <div class="trust-row">
+            <div class="stat">⭐ 4.9/5 Reviews</div>
+            <div class="stat">⏱️ 24/7 Friendly Service</div>
+            <div class="stat">🥤 Fresh Ingredients</div>
+          </div>
+        </div>
 
-<!-- LOCATION -->
-<div class="section" id="location">
-<div class="card">
-<h3>Our Location</h3>
-<p>Near Patidar Hotel, Juna Octroi Naka, Saijpur Road, Shahwadi, Ahmedabad – 382405</p>
+        <div class="hero-visual">
+          <div class="showcase">
+            <div class="card-hero">
+              <div class="hero-image"></div>
+              <div class="rating-panel">
+                <div>
+                  <strong>4.9</strong>
+                  <small>Customer Rating</small>
+                </div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="floating-tag tag-one">Fresh & tasty</div>
+            <div class="floating-tag tag-two">Home-style bhojan</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<iframe class="map-frame"
-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d229.60571159783248!2d72.57424400292705!3d22.961590192570995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8f7088b432e3%3A0x8f403fe1a6527e6!2sKaka%20Tea%20Stall!5e0!3m2!1sen!2sin!4v1767346848528">
-</iframe>
-</div>
-</div>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>Why people keep coming back</h2>
+          <p>
+            We serve comforting breakfast, tea, and meals with a clean environment, fast service,
+            and a warm local spirit that feels like home.
+          </p>
+        </div>
 
-<!-- TIMINGS -->
-<div class="section">
-<div class="card">
-<h3>Timings</h3>
-<div class="time-row"><span>🌅 Morning</span><span>4:30 AM – 11:00 AM</span></div>
-<div class="time-row"><span>🌙 Evening</span><span>5:00 PM – 11:00 PM</span></div>
-</div>
-</div>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="icon-box">☕</div>
+            <h3>Premium Chai</h3>
+            <p>Rich, aromatic tea brewed fresh every day for a truly comforting taste.</p>
+          </article>
 
-<!-- ⭐ CUSTOMER REVIEWS -->
-<div class="section" id="reviews">
-<div class="card">
-<h3>Customer Reviews</h3>
+          <article class="feature-card">
+            <div class="icon-box">🍛</div>
+            <h3>Fresh Bhojan</h3>
+            <p>Simple, fulfilling meals prepared with quality ingredients and homemade flavour.</p>
+          </article>
 
-<div class="review-form">
-<input id="custName" placeholder="Your Name">
-<select id="custRating">
-<option value="5">⭐⭐⭐⭐⭐ Excellent</option>
-<option value="4">⭐⭐⭐⭐ Good</option>
-<option value="3">⭐⭐⭐ Average</option>
-<option value="2">⭐⭐ Poor</option>
-<option value="1">⭐ Very Bad</option>
-</select>
-<textarea id="custReview" placeholder="Write your review..."></textarea>
-<button class="review-btn" onclick="addReview()">Submit Review</button>
-</div>
+          <article class="feature-card">
+            <div class="icon-box">🧼</div>
+            <h3>Clean & Hygienic</h3>
+            <p>A tidy, welcoming setup with service that feels premium and dependable.</p>
+          </article>
 
-<div id="reviewList"></div>
+          <article class="feature-card">
+            <div class="icon-box">⚡</div>
+            <h3>Fast Ordering</h3>
+            <p>Quick ordering experience built for busy mornings and easy daily visits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-</div>
-</div>
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head">
+          <h2>Popular menu favourites</h2>
+          <p>Signature tea, comforting meals, and value-for-money favourites made for every time of day.</p>
+        </div>
 
-<!-- FOOTER -->
-<footer>
-☕ © 2026 Kaka Tea Stall — Premium Digital Self Order System
-</footer>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-image" style="background-image:url('https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="menu-body">
+              <h3>Tea Specials</h3>
+              <div class="menu-item"><span>Regular Chai</span><span>₹5</span></div>
+              <div class="menu-item"><span>Special Chai</span><span>₹15</span></div>
+              <div class="menu-item"><span>Masala Chai</span><span>₹25</span></div>
+            </div>
+          </article>
 
-<script>
-/* ===== REVIEW SYSTEM ===== */
-let reviews = JSON.parse(localStorage.getItem("kakaReviews")) || [];
+          <article class="menu-card">
+            <div class="menu-image" style="background-image:url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="menu-body">
+              <h3>Meals</h3>
+              <div class="menu-item"><span>Dal Chawal</span><span>₹40</span></div>
+              <div class="menu-item"><span>Sabji Roti</span><span>₹50</span></div>
+              <div class="menu-item"><span>Full Bhojan Plate</span><span>₹60</span></div>
+            </div>
+          </article>
 
-function loadReviews(){
- let html="";
- reviews.forEach(r=>{
-  html+=`
-   <div class="review-card">
-     <b>${r.name}</b><br>
-     <span class="stars">${"★".repeat(r.rating)}</span>
-     <p>${r.text}</p>
-   </div>
-  `;
- });
- document.getElementById("reviewList").innerHTML = html;
-}
-loadReviews();
+          <article class="menu-card">
+            <div class="menu-image" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="menu-body">
+              <h3>Signature Combo</h3>
+              <div class="menu-item"><span>Tea + Breakfast</span><span>₹35</span></div>
+              <div class="menu-item"><span>Meal Combo</span><span>₹75</span></div>
+              <div class="menu-item"><span>Family Plate</span><span>₹120</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-function addReview(){
- let name=document.getElementById("custName").value;
- let rating=document.getElementById("custRating").value;
- let text=document.getElementById("custReview").value;
+    <section class="section" id="experience">
+      <div class="container story-grid">
+        <div class="story-card">
+          <div class="story-image" aria-label="Kaka Tea Stall atmosphere"></div>
+        </div>
 
- if(name=="" || text==""){ alert("Please fill all fields"); return; }
+        <div class="story-copy">
+          <div class="eyebrow">A modern tea experience</div>
+          <h2 style="margin: 18px 0 12px; font-family:'Playfair Display',serif; font-size: clamp(2.1rem, 3vw, 3rem); color: var(--primary-dark); line-height: 1.05; letter-spacing: -0.06em;">Comfort food with a premium touch</h2>
+          <p style="margin:0; color: var(--muted);">Our story is simple: honest food, warm hospitality, and a space where every customer feels welcome. Whether it’s a quick tea break or a satisfying meal, we keep it fresh, affordable, and memorable.</p>
 
- reviews.push({name:name,rating:rating,text:text});
- localStorage.setItem("kakaReviews",JSON.stringify(reviews));
+          <ul>
+            <li>Fresh ingredients and carefully prepared recipes</li>
+            <li>Clean seating atmosphere for daily comfort</li>
+            <li>Fast service with digital ordering convenience</li>
+            <li>Trusted local favourite with a premium presentation</li>
+          </ul>
+        </div>
+      </div>
 
- document.getElementById("custName").value="";
- document.getElementById("custReview").value="";
+      <div class="container stats-wrap" style="margin-top: 28px;">
+        <div class="info-card">
+          <strong>15+</strong>
+          <p>Signature menu items</p>
+        </div>
+        <div class="info-card">
+          <strong>12+</strong>
+          <p>Years of trust</p>
+        </div>
+        <div class="info-card">
+          <strong>24/7</strong>
+          <p>Service mindset</p>
+        </div>
+      </div>
+    </section>
 
- loadReviews();
- alert("Thank you for your review!");
-}
-</script>
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-head">
+          <h2>A peek into the stall</h2>
+          <p>Every corner reflects the warmth, cleanliness, and everyday comfort that define the experience.</p>
+        </div>
 
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="https://i.imgur.com/Fk7V4ks.jpg" alt="Premium fresh chai" />
+            <figcaption class="caption">Fresh Chai</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="https://i.imgur.com/0q9Z1Zm.jpg" alt="Simple bhojan" />
+            <figcaption class="caption">Home-style Meals</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="https://i.imgur.com/7yUvePI.jpg" alt="Clean seating" />
+            <figcaption class="caption">Clean Seating</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="https://i.imgur.com/1JQJg9S.jpg" alt="Customer counter" />
+            <figcaption class="caption">Quick Service</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <h2>What customers say</h2>
+          <p>Real feedback from regular guests who love the taste, service, and comfort.</p>
+        </div>
+
+        <div class="reviews-grid">
+          <article class="review-card">
+            <div class="top">
+              <div class="name">Riya S.</div>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p>“Best masala chai in the area. It feels premium, yet familiar and affordable.”</p>
+          </article>
+
+          <article class="review-card">
+            <div class="top">
+              <div class="name">Jay P.</div>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p>“The food is fresh, the seating is clean, and the service is always quick and friendly.”</p>
+          </article>
+
+          <article class="review-card">
+            <div class="top">
+              <div class="name">Mehul V.</div>
+              <div class="stars">★★★★★</div>
+            </div>
+            <p>“Very good breakfast spot. Affordable pricing, great taste, and a very calm atmosphere.”</p>
+          </article>
+        </div>
+
+        <div class="card" style="margin-top: 28px; background: linear-gradient(180deg, #fff 0%, #fff8f2 100%); padding: 24px; border-radius: 24px; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(43,29,24,0.06);">
+          <h3 style="margin-bottom: 16px; color: var(--primary-dark);">Leave a review</h3>
+          <div class="review-form">
+            <input id="custName" placeholder="Your Name" style="width:100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(122,34,0,0.2); font: inherit; margin-bottom: 12px;">
+            <select id="custRating" style="width:100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(122,34,0,0.2); font: inherit; margin-bottom: 12px; background:#fff;">
+              <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+              <option value="4">⭐⭐⭐⭐ Good</option>
+              <option value="3">⭐⭐⭐ Average</option>
+              <option value="2">⭐⭐ Poor</option>
+              <option value="1">⭐ Very Bad</option>
+            </select>
+            <textarea id="custReview" placeholder="Write your review..." style="width:100%; min-height:120px; resize: vertical; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(122,34,0,0.2); font: inherit; margin-bottom: 12px;"></textarea>
+            <button class="btn btn-primary" onclick="addReview()">Submit Review</button>
+          </div>
+          <div id="reviewList" style="margin-top: 18px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="location">
+      <div class="container location-wrap">
+        <div class="location-box">
+          <div class="eyebrow">Visit us</div>
+          <h3>Find Kaka Tea Stall</h3>
+          <div class="location-row">
+            <div class="loc-badge">📍</div>
+            <div>
+              <strong>Address</strong>
+              <p style="margin:6px 0 0; color: var(--muted);">Near Patidar Hotel, Juna Octroi Naka, Saijpur Road, Shahwadi, Ahmedabad – 382405</p>
+            </div>
+          </div>
+          <div class="location-row">
+            <div class="loc-badge">🕒</div>
+            <div>
+              <strong>Opening Hours</strong>
+              <p style="margin:6px 0 0; color: var(--muted);">Morning: 4:30 AM – 11:00 AM<br>Evening: 5:00 PM – 11:00 PM</p>
+            </div>
+          </div>
+          <div class="location-row">
+            <div class="loc-badge">📞</div>
+            <div>
+              <strong>Perfect for</strong>
+              <p style="margin:6px 0 0; color: var(--muted);">Daily chai breaks, breakfast, family meals, and quick bites.</p>
+            </div>
+          </div>
+        </div>
+
+        <iframe
+          class="map-frame"
+          src="https://www.google.com/maps?q=Patidar%20Hotel%20Juna%20Octroi%20Naka%20Saijpur%20Road%20Shahwadi%20Ahmedabad&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Kaka Tea Stall location map">
+        </iframe>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <h3>Fresh tea. Fresh mood. Fresh memory.</h3>
+            <p>Bring your family, enjoy your chai, and taste the comfort in every sip.</p>
+          </div>
+          <a class="btn btn-secondary" href="main.html" style="background:#fff; color: var(--primary-dark);">Order Now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">© 2026 Kaka Tea Stall</div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#location">Location</a>
+        <a href="main.html">Order</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let reviews = JSON.parse(localStorage.getItem("kakaReviews")) || [];
+
+    function loadReviews() {
+      let html = "";
+      reviews.forEach(r => {
+        html += `
+          <div style="background:#fff; border:1px solid rgba(122,34,0,0.08); border-radius:14px; padding:12px 14px; margin-top:12px; box-shadow:0 10px 20px rgba(43,29,24,0.04);">
+            <b style="color:var(--primary-dark);">${r.name}</b><br>
+            <span style="color:#ffb018; letter-spacing:0.1em;">${"★".repeat(r.rating)}</span>
+            <p style="margin:8px 0 0; color: var(--muted);">${r.text}</p>
+          </div>
+        `;
+      });
+      document.getElementById("reviewList").innerHTML = html;
+    }
+
+    loadReviews();
+
+    function addReview() {
+      let name = document.getElementById("custName").value.trim();
+      let rating = document.getElementById("custRating").value;
+      let text = document.getElementById("custReview").value.trim();
+
+      if (name === "" || text === "") {
+        alert("Please fill all fields");
+        return;
+      }
+
+      reviews.push({ name, rating, text });
+      localStorage.setItem("kakaReviews", JSON.stringify(reviews));
+
+      document.getElementById("custName").value = "";
+      document.getElementById("custReview").value = "";
+      loadReviews();
+      alert("Thank you for your review!");
+    }
+  </script>
 </body>
 </html>
