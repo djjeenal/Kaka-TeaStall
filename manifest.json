@@ -1,0 +1,19 @@
+{
+  "name": "Kaka Tea Stall",
+  "short_name": "Kaka Tea",
+  "description": "Kaka Tea Stall app for tea, meals, orders and payment.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fffaf5",
+  "theme_color": "#6d1d09",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
