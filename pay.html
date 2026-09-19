@@ -1,389 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="hi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kaka Tea Stall — Secure Payment</title>
-  <meta name="description" content="Secure payment page for Kaka Tea Stall. Pay via UPI, view bill information, and upload payment screenshot." />
+  <meta name="theme-color" content="#5b1708" />
+  <meta name="description" content="Kaka Tea Stall ka secure UPI payment page." />
+  <title>Pay Bill | Kaka Tea Stall</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #fffaf5;
-      --card: rgba(255,255,255,0.9);
-      --brand: #7a1e0c;
-      --brand-dark: #360b04;
-      --brand-soft: #fce7d0;
-      --gold: #f6b13d;
-      --gold-deep: #d98f11;
-      --text: #1f1a17;
-      --muted: #665f5a;
-      --line: rgba(122,30,12,0.12);
-      --success: #1ea96a;
-      --shadow: 0 24px 60px rgba(82,31,15,0.14);
-      --radius: 28px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Manrope", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(246,177,61,0.24), transparent 24%),
-        radial-gradient(circle at bottom right, rgba(122,30,12,0.08), transparent 28%),
-        linear-gradient(180deg, var(--bg) 0%, #fff8f2 100%);
-      color: var(--text);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-
-    .header-bar {
-      background: linear-gradient(135deg, #310900, #7a1e0c 42%, #b85a10 100%);
-      color: #fff;
-      text-align: center;
-      padding: 14px 18px;
-      font-size: 0.76rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-
-    .page {
-      min-height: calc(100vh - 54px);
-      display: grid;
-      place-items: center;
-      padding: 32px 18px;
-    }
-
-    .pay-shell {
-      width: min(100%, 520px);
-    }
-
-    .card {
-      position: relative;
-      overflow: hidden;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(122,30,12,0.08);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(6px);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 160px;
-      background: linear-gradient(135deg, rgba(122,30,12,0.08), rgba(246,177,61,0.14));
-    }
-
-    .inner {
-      position: relative;
-      z-index: 1;
-      padding: 28px 22px 22px;
-    }
-
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .brand-badge {
-      width: 72px;
-      height: 72px;
-      border-radius: 22px;
-      display: grid;
-      place-items: center;
-      font-size: 2rem;
-      background: linear-gradient(135deg, #fbe6c6, #f7c769);
-      border: 1px solid rgba(122,30,12,0.08);
-      box-shadow: 0 14px 26px rgba(122,30,12,0.14);
-    }
-
-    .brand-title {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      color: var(--brand-dark);
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(122,30,12,0.06);
-      color: var(--brand);
-      border: 1px solid rgba(122,30,12,0.08);
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .title {
-      margin: 18px 0 8px;
-      text-align: center;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      line-height: 1.08;
-      letter-spacing: -0.06em;
-      color: var(--brand-dark);
-    }
-
-    .subtitle {
-      margin: 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.96rem;
-      font-weight: 600;
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--line), transparent);
-      margin: 22px 0;
-    }
-
-    .meta {
-      display: grid;
-      gap: 12px;
-    }
-
-    .meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fff, #fffaf5);
-    }
-
-    .meta-label {
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .meta-value {
-      font-weight: 800;
-      color: var(--brand-dark);
-      word-break: break-all;
-      text-align: right;
-    }
-
-    .amount-box {
-      margin-top: 18px;
-      padding: 18px 16px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(122,30,12,0.96), rgba(191,96,29,0.98));
-      box-shadow: 0 18px 24px rgba(122,30,12,0.18);
-      color: #fff;
-      text-align: center;
-    }
-
-    .amount-box .small {
-      opacity: 0.9;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-
-    .amount-box .big {
-      display: block;
-      margin-top: 8px;
-      font-size: clamp(2rem, 6vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.06em;
-    }
-
-    .actions {
-      display: grid;
-      gap: 12px;
-      margin-top: 22px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      border: 0;
-      border-radius: 18px;
-      padding: 16px 18px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #f9bf4a, #d88d14);
-      color: var(--brand-dark);
-      box-shadow: 0 14px 22px rgba(216,141,20,0.30);
-    }
-
-    .btn-secondary {
-      background: #fff;
-      color: var(--brand);
-      border: 1px solid rgba(122,30,12,0.14);
-    }
-
-    .btn-ghost {
-      background: rgba(122,30,12,0.05);
-      color: var(--brand-dark);
-      border: 1px solid rgba(122,30,12,0.1);
-    }
-
-    .note {
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(30,169,106,0.22);
-      background: rgba(30,169,106,0.06);
-      color: #0d6a43;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .tiny {
-      margin-top: 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-
-    .small-link {
-      color: var(--brand);
-      font-weight: 800;
-    }
-
-    @media (max-width: 560px) {
-      .inner { padding: 24px 16px 18px; }
-      .meta-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .meta-value {
-        text-align: left;
-      }
-    }
+    :root{--ink:#241712;--muted:#6d625d;--brand:#641b08;--brand-2:#b55312;--gold:#f3b33f;--cream:#fffaf5;--line:#eaded5;--green:#16844d;--shadow:0 24px 70px rgba(73,27,10,.16)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;min-height:100vh;color:var(--ink);font-family:Manrope,sans-serif;background:radial-gradient(circle at 8% 0,#f8d49c 0,transparent 27%),linear-gradient(145deg,#fffaf5,#f8eee7 55%,#fffaf5)}
+    button,a{font:inherit} a{text-decoration:none;color:inherit}.top{padding:11px 16px;text-align:center;color:#fff;background:linear-gradient(110deg,#280700,var(--brand),var(--brand-2));font-size:.72rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .wrap{width:min(100% - 28px,620px);margin:0 auto;padding:28px 0 40px}.card{overflow:hidden;border:1px solid rgba(100,27,8,.1);border-radius:30px;background:rgba(255,255,255,.9);box-shadow:var(--shadow);backdrop-filter:blur(9px)}.head{padding:28px 22px 22px;text-align:center;background:linear-gradient(145deg,rgba(255,244,224,.92),rgba(255,255,255,.65))}.logo{width:68px;height:68px;display:grid;place-items:center;margin:0 auto 12px;border-radius:21px;background:linear-gradient(135deg,#ffebc5,#efb34c);font-size:2rem;box-shadow:0 14px 26px rgba(100,27,8,.16)}.brand{margin:0;color:var(--brand);font-weight:800;letter-spacing:-.04em}.title{margin:16px 0 7px;color:#381006;font:700 clamp(2rem,7vw,3rem)/1 "Playfair Display",serif}.subtitle{margin:0;color:var(--muted);font-size:.94rem;font-weight:600}.body{padding:22px}.rows{display:grid;gap:10px}.row{display:flex;justify-content:space-between;gap:15px;padding:13px 15px;border:1px solid var(--line);border-radius:16px;background:#fffdfb}.label{color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.value{max-width:65%;overflow-wrap:anywhere;color:#3c1308;text-align:right;font-weight:800}.amount{margin:18px 0;padding:20px;border-radius:20px;color:#fff;text-align:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 16px 28px rgba(100,27,8,.2)}.amount small{display:block;opacity:.85;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.amount strong{display:block;margin-top:5px;font-size:clamp(2.3rem,10vw,3.6rem);letter-spacing:-.07em}.status{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 18px;color:#95600a;font-size:.8rem;font-weight:800}.dot{width:9px;height:9px;border-radius:50%;background:#e4a326;box-shadow:0 0 0 5px rgba(228,163,38,.14)}.qr-panel{padding:16px;text-align:center;border:1px dashed #dcbf9e;border-radius:20px;background:#fffaf1}.qr-panel img{width:min(220px,75vw);height:auto;margin:12px auto 8px;border-radius:10px}.qr-panel p{margin:0;color:var(--muted);font-size:.8rem;font-weight:700}.upi-id{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px;color:var(--brand);font-weight:800}.copy-mini{padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--brand);background:#fff;cursor:pointer;font-size:.72rem;font-weight:800}.actions{display:grid;gap:11px;margin-top:20px}.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:15px 18px;border:0;border-radius:16px;cursor:pointer;font-weight:800;transition:transform .18s,box-shadow .18s}.btn:hover{transform:translateY(-2px)}.primary{color:#351004;background:linear-gradient(135deg,#ffd064,var(--gold));box-shadow:0 13px 22px rgba(214,145,19,.25)}.secondary{color:var(--brand);border:1px solid var(--line);background:#fff}.green{color:#fff;background:linear-gradient(135deg,#1bab68,#117d49);box-shadow:0 12px 22px rgba(22,132,77,.2)}.help{margin:18px 0 0;padding:13px 15px;border:1px solid rgba(22,132,77,.2);border-radius:15px;color:#11643d;background:rgba(22,132,77,.06);font-size:.83rem;font-weight:700;line-height:1.5;text-align:center}.foot{text-align:center;color:var(--muted);font-size:.78rem;line-height:1.6}.foot a{color:var(--brand);font-weight:800}.toast{position:fixed;right:16px;bottom:18px;z-index:3;padding:12px 16px;border-radius:12px;color:#fff;background:#20130f;box-shadow:0 12px 25px #0003;font-size:.82rem;font-weight:700;transform:translateY(90px);opacity:0;transition:.25s}.toast.show{transform:translateY(0);opacity:1}.back{display:block;margin:18px auto 0;color:var(--brand);text-align:center;font-weight:800;font-size:.88rem}@media(max-width:480px){.body{padding:17px}.row{align-items:flex-start;flex-direction:column;gap:4px}.value{max-width:100%;text-align:left}.head{padding:24px 17px 19px}}
   </style>
 </head>
 <body>
-  <div class="header-bar">Kaka Tea Stall • Secure Payment</div>
-
-  <main class="page">
-    <div class="pay-shell">
-      <div class="card">
-        <div class="inner">
-          <div class="brand-wrap">
-            <div class="brand-badge">☕</div>
-            <div class="brand-title">Kaka Tea Stall</div>
-          </div>
-
-          <div style="text-align:center;">
-            <span class="eyebrow">Digital payment</span>
-          </div>
-
-          <h1 class="title">Pay Your Bill</h1>
-          <p class="subtitle">Quick and secure payment with UPI</p>
-
-          <div class="divider"></div>
-
-          <div class="meta">
-            <div class="meta-row">
-              <span class="meta-label">Bill No.</span>
-              <span class="meta-value" id="billNo">Loading...</span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-label">Status</span>
-              <span class="meta-value">Pending</span>
-            </div>
-          </div>
-
-          <div class="amount-box">
-            <span class="small">Total Amount</span>
-            <span class="big" id="amountValue">₹0</span>
-          </div>
-
-          <div class="actions">
-            <button class="btn btn-primary" type="button" onclick="openUPI()">💳 Pay with UPI</button>
-            <button class="btn btn-secondary" type="button" onclick="copyUPI()">📋 Copy UPI ID</button>
-            <a class="btn btn-ghost" href="https://forms.gle/ntDaekagEsrvXo7H7" target="_blank" rel="noreferrer">📸 Upload Payment Screenshot</a>
-            <a class="btn btn-secondary" href="index.html">🏠 Back to Home</a>
-          </div>
-
-          <div class="note">
-            ⚠️ Payment complete hone ke baad screenshot upload karna zaroori hai.
-          </div>
-
-          <p class="tiny">
-            Need help? Contact <a class="small-link" href="tel:+918401875642">+91 84018 75642</a>
-          </p>
+  <div class="top">☕ Kaka Tea Stall · Secure UPI Payment</div>
+  <main class="wrap">
+    <section class="card" aria-labelledby="page-title">
+      <header class="head">
+        <div class="logo" aria-hidden="true">☕</div>
+        <p class="brand">Kaka Tea Stall</p>
+        <h1 class="title" id="page-title">Bill Pay Kijiye</h1>
+        <p class="subtitle">Fast, simple aur secure payment</p>
+      </header>
+      <div class="body">
+        <div class="status"><span class="dot"></span><span>Payment pending · UPI ready</span></div>
+        <div class="rows">
+          <div class="row"><span class="label">Bill number</span><span class="value" id="billNo">Loading…</span></div>
+          <div class="row"><span class="label">Payment mode</span><span class="value">UPI / QR Code</span></div>
         </div>
+        <div class="amount"><small>Total payable amount</small><strong id="amount">₹0</strong></div>
+        <div class="qr-panel">
+          <strong>Scan karke Pay karein</strong>
+          <img id="qr" alt="UPI payment QR code" />
+          <p>Google Pay · PhonePe · Paytm · BHIM</p>
+          <div class="upi-id">UPI: <span id="upiText">8401875642@axl</span><button class="copy-mini" type="button" onclick="copyUPI()">Copy</button></div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" type="button" onclick="openUPI()">💳 UPI App se Pay karein</button>
+          <a class="btn green" id="whatsapp" target="_blank" rel="noopener">📲 Payment details WhatsApp karein</a>
+          <a class="btn secondary" href="https://forms.gle/ntDaekagEsrvXo7H7" target="_blank" rel="noopener">📸 Payment screenshot upload karein</a>
+          <button class="btn secondary" type="button" onclick="window.print()">🧾 Receipt save / print karein</button>
+        </div>
+        <div class="help">✅ Payment ke baad screenshot upload karna zaroori hai.<br />Koi problem ho to <a href="tel:+918401875642">+91 84018 75642</a> par call karein.</div>
+        <p class="foot">Payment karte waqt amount aur UPI ID zaroor check karein.<br />Kaka Tea Stall, Ahmedabad</p>
       </div>
-    </div>
+    </section>
+    <a class="back" href="index.html">← Kaka Tea Stall home par wapas jayein</a>
   </main>
-
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const bill = params.get("bill") || "KAKA0000000000000";
-    const amount = params.get("amt") || "0";
-
-    const safeAmount = Number(amount) || 0;
-    const formatter = new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
-    });
-
-    document.getElementById("billNo").textContent = bill;
-    document.getElementById("amountValue").textContent = formatter.format(safeAmount);
-
-    const UPI_ID = "8401875642@axl";
-    const merchantName = "KakaTeaStall";
-    const upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(merchantName)}&am=${safeAmount}&cu=INR&tn=${encodeURIComponent("Bill-" + bill)}`;
-
-    function openUPI() {
-      if (!safeAmount || safeAmount <= 0) {
-        alert("Invalid payment amount detected.");
-        return;
-      }
-
-      try {
-        window.location.href = upiLink;
-      } catch (error) {
-        alert("Could not open UPI app. Please copy UPI ID and pay manually.");
-      }
-    }
-
-    async function copyUPI() {
-      try {
-        await navigator.clipboard.writeText(UPI_ID);
-        alert("UPI ID copied: " + UPI_ID);
-      } catch (error) {
-        alert("Unable to copy automatically. Please use UPI ID: " + UPI_ID);
-      }
-    }
+    const params = new URLSearchParams(location.search);
+    const bill = (params.get('bill') || 'KAKA0000000000000').slice(0, 80);
+    const amount = Math.max(0, Number.parseFloat(params.get('amt')) || 0);
+    const upiId = '8401875642@axl';
+    const merchant = 'KakaTeaStall';
+    const money = new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:0,maximumFractionDigits:2});
+    const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(merchant)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent('Bill-'+bill)}`;
+    document.querySelector('#billNo').textContent = bill;
+    document.querySelector('#amount').textContent = money.format(amount);
+    document.querySelector('#qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=420x420&margin=12&data=' + encodeURIComponent(upiLink);
+    document.querySelector('#whatsapp').href = 'https://wa.me/918401875642?text=' + encodeURIComponent(`Namaste Kaka Tea Stall, Bill ${bill} ka payment ₹${amount} kar diya hai. Screenshot share kar raha/rahi hoon.`);
+    function notify(message){const toast=document.querySelector('#toast');toast.textContent=message;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2200)}
+    function openUPI(){if(!amount){notify('Invalid payment amount hai.');return} location.href=upiLink}
+    async function copyUPI(){try{await navigator.clipboard.writeText(upiId);notify('UPI ID copy ho gayi ✓')}catch(e){notify('UPI ID: '+upiId)}}
   </script>
 </body>
 </html>
