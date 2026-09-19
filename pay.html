@@ -1,203 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Kaka Tea Stall — Secure Payment</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaka Tea Stall — Secure Payment</title>
+  <meta name="description" content="Secure payment page for Kaka Tea Stall. Pay via UPI, view bill information, and upload payment screenshot." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fffaf5;
+      --card: rgba(255,255,255,0.9);
+      --brand: #7a1e0c;
+      --brand-dark: #360b04;
+      --brand-soft: #fce7d0;
+      --gold: #f6b13d;
+      --gold-deep: #d98f11;
+      --text: #1f1a17;
+      --muted: #665f5a;
+      --line: rgba(122,30,12,0.12);
+      --success: #1ea96a;
+      --shadow: 0 24px 60px rgba(82,31,15,0.14);
+      --radius: 28px;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-<style>
-body{
- margin:0;
- font-family:'Poppins',sans-serif;
- background:#fff6ed;
- color:#222;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Manrope", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(246,177,61,0.24), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(122,30,12,0.08), transparent 28%),
+        linear-gradient(180deg, var(--bg) 0%, #fff8f2 100%);
+      color: var(--text);
+    }
 
-/* ===== HEADER ===== */
-.top-header{
- background:linear-gradient(135deg,#3e0000,#8b0000,#d97706);
- color:white;
- padding:18px;
- text-align:center;
- font-size:22px;
- font-weight:700;
- letter-spacing:0.5px;
- box-shadow:0 6px 15px rgba(0,0,0,0.25);
-}
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
-/* ===== PAGE WRAP ===== */
-.page-wrap{
- padding:22px;
- text-align:center;
-}
+    .header-bar {
+      background: linear-gradient(135deg, #310900, #7a1e0c 42%, #b85a10 100%);
+      color: #fff;
+      text-align: center;
+      padding: 14px 18px;
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
 
-/* ===== CARD ===== */
-.pay-card{
- background:white;
- border-radius:22px;
- padding:24px;
- box-shadow:0 8px 20px rgba(0,0,0,0.15);
-}
+    .page {
+      min-height: calc(100vh - 54px);
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+    }
 
-/* ===== LOGO ===== */
-.pay-logo{
- width:70px;
- height:70px;
- border-radius:16px;
- background:#ffb300;
- display:inline-flex;
- align-items:center;
- justify-content:center;
- font-size:30px;
- font-weight:bold;
- margin-bottom:10px;
- box-shadow:0 4px 12px rgba(0,0,0,0.35);
-}
+    .pay-shell {
+      width: min(100%, 520px);
+    }
 
-/* ===== TEXT ===== */
-.pay-title{
- font-size:20px;
- font-weight:700;
- color:#7b0000;
-}
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(122,30,12,0.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
 
-.pay-sub{
- font-size:13px;
- color:#666;
- margin-top:4px;
-}
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 160px;
+      background: linear-gradient(135deg, rgba(122,30,12,0.08), rgba(246,177,61,0.14));
+    }
 
-.line{
- border-top:1px dashed #aaa;
- margin:14px 0;
-}
+    .inner {
+      position: relative;
+      z-index: 1;
+      padding: 28px 22px 22px;
+    }
 
-/* ===== BILL DETAILS ===== */
-.bill-info{
- font-size:15px;
- line-height:1.9;
-}
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
 
-/* ===== BUTTON ===== */
-.primary-btn{
- background:linear-gradient(135deg,#ffd36a,#ffb300);
- border:none;
- padding:13px 24px;
- border-radius:30px;
- font-weight:700;
- font-size:15px;
- margin-top:12px;
- box-shadow:0 4px 10px rgba(0,0,0,0.30);
-}
+    .brand-badge {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #fbe6c6, #f7c769);
+      border: 1px solid rgba(122,30,12,0.08);
+      box-shadow: 0 14px 26px rgba(122,30,12,0.14);
+    }
 
-.primary-btn:active{
- transform:scale(0.97);
-}
+    .brand-title {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--brand-dark);
+    }
 
-/* ===== HOME BUTTON ===== */
-.home-btn{
- background:#7b0000;
- color:white;
- padding:12px 24px;
- border-radius:30px;
- text-decoration:none;
- display:inline-block;
- margin-top:14px;
- font-weight:600;
- box-shadow:0 4px 10px rgba(0,0,0,0.30);
-}
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(122,30,12,0.06);
+      color: var(--brand);
+      border: 1px solid rgba(122,30,12,0.08);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
-/* ===== NOTE ===== */
-.footer-note{
- font-size:12px;
- color:#666;
- margin-top:14px;
- line-height:1.6;
-}
-</style>
+    .title {
+      margin: 18px 0 8px;
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+      color: var(--brand-dark);
+    }
+
+    .subtitle {
+      margin: 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 22px 0;
+    }
+
+    .meta {
+      display: grid;
+      gap: 12px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff, #fffaf5);
+    }
+
+    .meta-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-weight: 800;
+      color: var(--brand-dark);
+      word-break: break-all;
+      text-align: right;
+    }
+
+    .amount-box {
+      margin-top: 18px;
+      padding: 18px 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(122,30,12,0.96), rgba(191,96,29,0.98));
+      box-shadow: 0 18px 24px rgba(122,30,12,0.18);
+      color: #fff;
+      text-align: center;
+    }
+
+    .amount-box .small {
+      opacity: 0.9;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .amount-box .big {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f9bf4a, #d88d14);
+      color: var(--brand-dark);
+      box-shadow: 0 14px 22px rgba(216,141,20,0.30);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--brand);
+      border: 1px solid rgba(122,30,12,0.14);
+    }
+
+    .btn-ghost {
+      background: rgba(122,30,12,0.05);
+      color: var(--brand-dark);
+      border: 1px solid rgba(122,30,12,0.1);
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(30,169,106,0.22);
+      background: rgba(30,169,106,0.06);
+      color: #0d6a43;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .tiny {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .small-link {
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    @media (max-width: 560px) {
+      .inner { padding: 24px 16px 18px; }
+      .meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .meta-value {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="header-bar">Kaka Tea Stall • Secure Payment</div>
 
-<!-- HEADER -->
-<div class="top-header">
-☕ Kaka Tea Stall — Payment Page
-</div>
+  <main class="page">
+    <div class="pay-shell">
+      <div class="card">
+        <div class="inner">
+          <div class="brand-wrap">
+            <div class="brand-badge">☕</div>
+            <div class="brand-title">Kaka Tea Stall</div>
+          </div>
 
-<!-- CONTENT -->
-<div class="page-wrap">
- <div class="pay-card">
+          <div style="text-align:center;">
+            <span class="eyebrow">Digital payment</span>
+          </div>
 
-   <div class="pay-logo">☕</div>
+          <h1 class="title">Pay Your Bill</h1>
+          <p class="subtitle">Quick and secure payment with UPI</p>
 
-   <div class="pay-title">Secure Digital Payment</div>
-   <div class="pay-sub">Pay easily using any UPI App</div>
+          <div class="divider"></div>
 
-   <div class="line"></div>
+          <div class="meta">
+            <div class="meta-row">
+              <span class="meta-label">Bill No.</span>
+              <span class="meta-value" id="billNo">Loading...</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Status</span>
+              <span class="meta-value">Pending</span>
+            </div>
+          </div>
 
-   <div class="bill-info">
-     <div><b>Bill Number:</b> <span id="billNo">Loading...</span></div>
-     <div><b>Total Amount:</b> ₹ <span id="billAmt">0</span></div>
-   </div>
+          <div class="amount-box">
+            <span class="small">Total Amount</span>
+            <span class="big" id="amountValue">₹0</span>
+          </div>
 
-   <div class="line"></div>
+          <div class="actions">
+            <button class="btn btn-primary" type="button" onclick="openUPI()">💳 Pay with UPI</button>
+            <button class="btn btn-secondary" type="button" onclick="copyUPI()">📋 Copy UPI ID</button>
+            <a class="btn btn-ghost" href="https://forms.gle/ntDaekagEsrvXo7H7" target="_blank" rel="noreferrer">📸 Upload Payment Screenshot</a>
+            <a class="btn btn-secondary" href="index.html">🏠 Back to Home</a>
+          </div>
 
-   <!-- DIRECT UPI BUTTON -->
-   <button class="primary-btn" onclick="openUPI()">
-     💳 Open UPI App & Pay Now
-   </button>
+          <div class="note">
+            ⚠️ Payment complete hone ke baad screenshot upload karna zaroori hai.
+          </div>
 
-   <div class="footer-note">
-     ⚠️ Payment complete hone ke baad<br>
-     Screenshot upload karna zaruri hai.
-   </div>
+          <p class="tiny">
+            Need help? Contact <a class="small-link" href="tel:+918401875642">+91 84018 75642</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
 
-   <!-- ✅ PREMIUM SCREENSHOT UPLOAD BUTTON -->
-   <a href="https://forms.gle/ntDaekagEsrvXo7H7" target="_blank">
-     <button class="primary-btn">
-       📤 Upload Payment Screenshot
-     </button>
-   </a>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const bill = params.get("bill") || "KAKA0000000000000";
+    const amount = params.get("amt") || "0";
 
-   <!-- HOME BUTTON -->
-   <a href="index.html" class="home-btn">🏠 Back to Home</a>
+    const safeAmount = Number(amount) || 0;
+    const formatter = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    });
 
+    document.getElementById("billNo").textContent = bill;
+    document.getElementById("amountValue").textContent = formatter.format(safeAmount);
 
- </div>
-</div>
+    const UPI_ID = "8401875642@axl";
+    const merchantName = "KakaTeaStall";
+    const upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(merchantName)}&am=${safeAmount}&cu=INR&tn=${encodeURIComponent("Bill-" + bill)}`;
 
-<script>
-/* ===== READ URL PARAMETERS ===== */
-let params = new URLSearchParams(window.location.search);
-let bill = params.get("bill");
-let amt  = params.get("amt");
+    function openUPI() {
+      if (!safeAmount || safeAmount <= 0) {
+        alert("Invalid payment amount detected.");
+        return;
+      }
 
-/* ===== SHOW DETAILS ===== */
-document.getElementById("billNo").innerText = bill ? bill : "Not Found";
-document.getElementById("billAmt").innerText = amt ? amt : "0";
+      try {
+        window.location.href = upiLink;
+      } catch (error) {
+        alert("Could not open UPI app. Please copy UPI ID and pay manually.");
+      }
+    }
 
-/* ===== BUILD UPI LINK ===== */
-let upiLink = "";
-
-if(bill && amt){
- upiLink = "upi://pay?pa=8401875642@axl"+
-           "&pn=KakaTeaStall"+
-           "&am="+amt+
-           "&cu=INR"+
-           "&tn=Bill-"+bill;
-}
-
-/* ===== OPEN UPI ===== */
-function openUPI(){
- if(upiLink!=""){
-   location.href = upiLink;
- }else{
-   alert("Invalid Payment Link");
- }
-}
-</script>
-
+    async function copyUPI() {
+      try {
+        await navigator.clipboard.writeText(UPI_ID);
+        alert("UPI ID copied: " + UPI_ID);
+      } catch (error) {
+        alert("Unable to copy automatically. Please use UPI ID: " + UPI_ID);
+      }
+    }
+  </script>
 </body>
 </html>
