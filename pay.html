@@ -325,36 +325,7 @@
       font-weight: 800;
     }
     .summary-total strong { font-size: 1.3rem; }
-    .success-box {
-      display: none;
-      text-align: center;
-      padding: 28px 22px;
-    }
-    .success-check {
-      width: 82px;
-      height: 82px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      margin: 0 auto 14px;
-      background: rgba(30,141,92,0.12);
-      color: var(--green);
-      font-size: 2.4rem;
-      font-weight: 900;
-    }
-    .success-box h3 {
-      margin: 0 0 8px;
-      font-size: clamp(1.7rem, 5vw, 2.4rem);
-      color: #1c2f27;
-      letter-spacing: -0.05em;
-    }
-    .success-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-weight: 600;
-    }
-    .success-actions { margin-top: 18px; display: grid; gap: 10px; }
+
     .toast {
       position: fixed;
       right: 18px;
@@ -372,6 +343,7 @@
       transition: opacity 0.22s ease, transform 0.22s ease;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
+
     .back-link {
       display: block;
       width: fit-content;
@@ -380,6 +352,7 @@
       font-weight: 800;
       text-align: center;
     }
+
     @media (max-width: 760px) {
       .grid { grid-template-columns: 1fr; }
       .row { flex-direction: column; align-items: flex-start; }
@@ -474,6 +447,7 @@
     document.getElementById('amountValue').textContent = money.format(amount || 0);
     document.getElementById('summaryTotal').textContent = money.format(amount || 0);
     document.getElementById('qrCode').src = 'https://api.qrserver.com/v1/create-qr-code/?size=420x420&margin=12&data=' + encodeURIComponent(payLink);
+
     document.getElementById('whatsappLink').href = 'https://wa.me/918401875642?text=' + encodeURIComponent(
       `Namaste Kaka Tea Stall, Bill ${bill} ka payment ₹${amount || 0} karna hai. Please confirm and share screenshot.`
     );
